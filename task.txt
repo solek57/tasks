@@ -1,0 +1,49 @@
+task1    
+public static int[] removeDuplicates(int[] a) {
+        LinkedHashSet<Integer> linkedHashSet = new LinkedHashSet<>(a.length);
+        for (int el : a) {
+            linkedHashSet.add(el);
+        }
+
+        int[] result = new int[linkedHashSet.size()];
+        int i = 0;
+        for (Object object : linkedHashSet) {
+            Integer element = (Integer) object;
+            if (element > 0)
+                result[i] = element;
+            else throw new UnsupportedOperationException("expected element >0");
+            i++;
+        }
+        return result;
+    }
+--------------------------------------------------------------
+task2
+public boolean hasCyclicles(Set<Package> path, Package cur) {
+        if (cur == null) {
+            return false;
+        }
+
+        if (path.contains(cur)) {
+            return true;
+        }
+        path.add(cur);
+
+        List<Package> dependencies = cur.getDependencies();
+        if ((dependencies == null) || dependencies.isEmpty()) {
+            return false;
+        }
+
+        for (Package next : dependencies) {
+            if (hasCyclicles(new HashSet<Package>(path), next)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+--------------------------------------------------------------
+task3 a
+select * from table 2 left join table1 on table2.id=table1.id
+--------------------------------------------------------------
+task3 b
+select * from table1 where table1.id in(select count(id) as count from table2 group by id having count >=2 )
